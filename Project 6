@@ -1,16 +1,41 @@
 #include <iostream>
+#include <ostream>
 
 using namespace std;
 
+void WriteToFile(array[][]);
+
 int main() {
     //function initalize the array
-        // Nick
+    // Nick
     //function print array to screen
-        // Nick
+    // Nick
     //function manipulate the array
-        // Nick
+    // Nick
     //function to write to a file
-        //Jacob
+    // Jacob
     //Do While loop in main
-        //Jacob
+
+
+    bool continueLooping = true;
+    bool isDone = false;
+
+    while (continueLooping) {
+        //isDone = what the function returns
+        if (isDone) {
+            continueLooping = false;
+        }
+    }
+
+    
+  WriteToFile(array);
+}
+
+void WriteToFile(array[][]) {
+    string fileName = "Hotplate.csv";
+    ostream outSS;
+    outSS.open(fileName);
+    
+    int i,j;
+    
 }
