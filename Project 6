@@ -4,8 +4,9 @@
 
 using namespace std;
 
-const int SET_WIDTH_CONSTANT =;
-const int SET_PRECSION_CONSTANT = ;
+const int SIZE_CONSTANT = 10;
+const int SET_WIDTH_CONSTANT = 9;
+const int SET_PRECISION_CONSTANT = 3;
 
 void WriteToFile(array[][]);
 
@@ -19,20 +20,39 @@ int main() {
     // function to write to a file
     // Jacob
     // Do While loop in main
+    
+    
+    cout << "Printing plate after one iteration..." << endl;
+    //bool placeholder = iteration function **REMEMBER TO UNCOMMENT THIS**
+    //PrintArray(array); **REMEMBER TO UNCOMMENT THIS**
 
 
     bool continueLooping = true;
-    bool isDone = false;
+    bool isDone = false; //Is done refers to whether or not the values in the plate have ceased to change by more than 0.1 degrees
+    int counter = 1; //Counter must be set to 1 [one]
+    int copyArray[SIZE_CONSTANT][SIZE_CONSTANT]; //This is the copy array. More on that in a later comment
+    int i,j;
 
     while (continueLooping) {
-        //isDone = what the function returns
+        //isDone = what the function returns {TYPE BOOL}
         if (isDone) {
+            cout << "Printing final plate..." << endl;
+            //PrintArray(array);
             continueLooping = false;
+        } else if (counter == 3) { //This copies the array after the third iteration so that it can be printed out later on in the program.
+            for (i = 0; i < SIZE_CONSTANT; i++) {
+                for (j = 0; j < SIZE_CONSTANT; j++) {
+                    copyArray[i][j] = array[i][j];
+                }
+            }
         }
+        counter++;
     }
 
+    cout << "Writing final plate to \"Hotplate.csv\"..." << endl;
+    WriteToFile(array);
 
-  WriteToFile(array);
+    //PrintArray(copyArray); {NICK, can you implement the print function right here as well?}
 }
 
 void WriteToFile(array[][]) {
@@ -43,14 +63,13 @@ void WriteToFile(array[][]) {
 
     int i,j;
 
-    cout << fixed << setprecision(SET_PRECSION_CONSTANT);
+    cout << fixed << setprecision(SET_PRECISION_CONSTANT);
     for (i = 0; i < SIZE_CONSTANT; i++) {
         for (j = 0; j < SIZE_CONSTANT; j++) {
             outSS << setw(SET_WIDTH_CONSTANT) << array[i][j];
         }
         outSS << endl;
     }
-    
-    outSS.close();
 
+    outSS.close();
 }
