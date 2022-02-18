@@ -1,7 +1,11 @@
 #include <iostream>
-#include <ostream>
+#include <iomanip>
+#include <fstream>
 
 using namespace std;
+
+const int SET_WIDTH_CONSTANT =;
+const int SET_PRECSION_CONSTANT = ;
 
 void WriteToFile(array[][]);
 
@@ -12,9 +16,9 @@ int main() {
     // Nick
     //function manipulate the array
     // Nick
-    //function to write to a file
+    // function to write to a file
     // Jacob
-    //Do While loop in main
+    // Do While loop in main
 
 
     bool continueLooping = true;
@@ -27,15 +31,24 @@ int main() {
         }
     }
 
-    
+
   WriteToFile(array);
 }
 
 void WriteToFile(array[][]) {
+
     string fileName = "Hotplate.csv";
-    ostream outSS;
+    ofstream outSS;
     outSS.open(fileName);
-    
+
     int i,j;
-    
+
+    cout << fixed << setprecision(SET_PRECSION_CONSTANT);
+    for (i = 0; i < SIZE_CONSTANT; i++) {
+        for (j = 0; j < SIZE_CONSTANT; j++) {
+            outSS << setw(SET_WIDTH_CONSTANT) << array[i][j];
+        }
+        outSS << endl;
+    }
+
 }
