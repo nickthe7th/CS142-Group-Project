@@ -50,5 +50,7 @@ void WriteToFile(array[][]) {
         }
         outSS << endl;
     }
+    
+    outSS.close();
 
 }
