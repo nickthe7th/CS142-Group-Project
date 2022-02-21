@@ -8,33 +8,34 @@ const int SIZE_CONSTANT = 10;
 const int SET_WIDTH_CONSTANT = 9;
 const int SET_PRECISION_CONSTANT = 3;
 
-void WriteToFile(array[][]);
+void WriteToFile(int array[SIZE_CONSTANT][SIZE_CONSTANT]);
 
 int main() {
+    int array[SIZE_CONSTANT][SIZE_CONSTANT];
+    
     //function initalize the array
     // Nick
     //function print array to screen
     // Nick
     //function manipulate the array
     // Nick
-    // function to write to a file
-    // Jacob
-    // Do While loop in main
-    
-    
+
     cout << "Printing plate after one iteration..." << endl;
     //bool placeholder = iteration function **REMEMBER TO UNCOMMENT THIS**
     //PrintArray(array); **REMEMBER TO UNCOMMENT THIS**
 
 
-    bool continueLooping = true;
-    bool isDone = false; //Is done refers to whether or not the values in the plate have ceased to change by more than 0.1 degrees
-    int counter = 1; //Counter must be set to 1 [one]
+    bool continueLooping = true; //Should be self explanatory what this variable does.
+    bool isDone = false; //Is done refers to whether or not the values in the plate have ceased to change by more than 0.1 degrees. This is modified
+    // by manipulate array function
+    int counter = 1; //Counter must be set to 1 [one] since this counts the number of iterations the hot plate has been through. By this point in the code
+        // the array has already been through one iteration.
     int copyArray[SIZE_CONSTANT][SIZE_CONSTANT]; //This is the copy array. More on that in a later comment
     int i,j;
 
     while (continueLooping) {
         //isDone = what the function returns {TYPE BOOL}
+        continueLooping = false; //**TAKE THIS LINE OUT**
         if (isDone) {
             cout << "Printing final plate..." << endl;
             //PrintArray(array);
@@ -46,16 +47,17 @@ int main() {
                 }
             }
         }
-        counter++;
+        counter++; //Increments the number of times the array has been modified.
     }
 
     cout << "Writing final plate to \"Hotplate.csv\"..." << endl;
-    WriteToFile(array);
+    WriteToFile(array); //The array should be modified after each iteration using an array pass-by reference
 
+    cout << "Printing input plate after 3 updates..." << endl;
     //PrintArray(copyArray); {NICK, can you implement the print function right here as well?}
 }
 
-void WriteToFile(array[][]) {
+void WriteToFile(int array[SIZE_CONSTANT][SIZE_CONSTANT]) {
 
     string fileName = "Hotplate.csv";
     ofstream outSS;
@@ -66,7 +68,11 @@ void WriteToFile(array[][]) {
     cout << fixed << setprecision(SET_PRECISION_CONSTANT);
     for (i = 0; i < SIZE_CONSTANT; i++) {
         for (j = 0; j < SIZE_CONSTANT; j++) {
-            outSS << setw(SET_WIDTH_CONSTANT) << array[i][j];
+            if (j != SIZE_CONSTANT -1) {
+                outSS << setw(SET_WIDTH_CONSTANT) << array[i][j] << ",";
+            } else {
+                outSS << setw(SET_WIDTH_CONSTANT) << array[i][j];
+            }
         }
         outSS << endl;
     }
