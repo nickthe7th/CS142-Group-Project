@@ -1,6 +1,8 @@
 #include <iostream>
 #include <iomanip>
 #include <fstream>
+#include <string>
+#include <math.h>
 
 using namespace std;
 
@@ -9,6 +11,12 @@ const int SET_WIDTH_CONSTANT = 9;
 const int SET_PRECISION_CONSTANT = 3;
 
 void WriteToFile(int array[SIZE_CONSTANT][SIZE_CONSTANT]);
+
+bool IterateHotPlate(double inputArray[SIZE_CONSTANT][SIZE_CONSTANT]);
+
+void PrintHotPlate(double input[SIZE_CONSTANT][SIZE_CONSTANT]);
+
+void InitializeHotPlate(double hotPlate[SIZE_CONSTANT][SIZE_CONSTANT]);
 
 int main() {
     int array[SIZE_CONSTANT][SIZE_CONSTANT];
@@ -79,3 +87,63 @@ void WriteToFile(int array[SIZE_CONSTANT][SIZE_CONSTANT]) {
 
     outSS.close();
 }
+
+
+bool IterateHotPlate(double inputArray[SIZE_CONSTANT][SIZE_CONSTANT]){
+
+    //Creates a copy of the current state of the hotplate
+    double copyArray[10][10];
+    for (int i=0; i<10; i++){
+        for (int j=0; j<10; j++){
+            copyArray[i][j] = inputArray[i][j];
+        }
+    }
+
+    //Updates the hotplate for the next iteration
+    for (int i=1; i<9; i++){
+        for (int j=1; j<9; j++){
+            inputArray[i][j] = (copyArray[i][j-1] + copyArray[i][j+1] + copyArray[i+1][j] + copyArray[i-1][j])/4.0;
+        }
+    }
+
+    //Checks how many "cells" changed less than 0.1
+    int steadyStateCheck = 0;
+    for (int i=0; i<10; i++){
+        for (int j=0; j<10; j++){
+            if ((fabs(inputArray[i][j]-copyArray[i][j]) <= 0.1)){
+                steadyStateCheck++;
+            }
+        }
+    }
+
+    bool done = (steadyStateCheck==100);
+    return done;
+}
+
+void PrintHotPlate(double input[10][10]){
+    //Simple function to print the current state of the hotplate
+    for (int i=0; i<10; i++){
+        for (int j=0; j<9; j++){
+            cout << fixed << setprecision(3) << setw(9) << input[i][j] << ",";
+        }
+        cout << fixed << setprecision(3) << setw(9) << input[i][9] << endl;
+    }
+    
+void InitializeHotPlate(double hotPlate[SIZE_CONSTANT][SIZE_CONSTANT]){
+    ifstream inFS;
+    inFS.open("Input.txt");
+
+    if(!inFS.is_open()){
+        cout << "File failed to open" << endl;
+    }
+
+    int input=0;
+    double hotPlate[10][10];
+    for (int i=0; i<10; i++){
+        for (int j=0; j<10; j++){
+            inFS >> input;
+            hotPlate[i][j] = input;
+        }
+    }
+    inFS.close();
+    }
